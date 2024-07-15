@@ -213,7 +213,7 @@ describe(CartComponent.name, () => {
   });
 
 
-  fit('the title "the cart is empty" is displayed when there is empty', () => {
+  it('the title "the cart is empty" is displayed when there is empty', () => {
     component.listCartBook = [];
     fixture.detectChanges();
     const debugElement: DebugElement = fixture.debugElement.query(By.css('#titleCartEmpty'));

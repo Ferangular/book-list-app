@@ -42,7 +42,7 @@ const book: Book = {
   amount: 2
 };
 
-xdescribe(BookService.name, () => {
+describe(BookService.name, () => {
   let service: BookService;
   let httpMock: HttpTestingController;
   let storage = {};

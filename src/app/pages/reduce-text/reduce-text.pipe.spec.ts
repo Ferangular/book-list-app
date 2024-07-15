@@ -1,6 +1,6 @@
 import {ReduceTextPipe} from './reduce-text.pipe';
 
-xdescribe('ReduceTextPipe', () => {
+describe('ReduceTextPipe', () => {
 
   let pipe: ReduceTextPipe;
 
