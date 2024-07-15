@@ -5,6 +5,7 @@ import {BookService} from '../../services/book.service';
 import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, Pipe, PipeTransform} from '@angular/core';
 import {of} from 'rxjs';
 import {Book} from '../../models/book.model';
+import {DOCUMENT} from "@angular/common";
 
 const listBook: Book[] = [
   {
@@ -42,7 +43,7 @@ class ReduceTextPipeMock implements PipeTransform {
 }
 
 
-xdescribe(HomeComponent.name, () => {
+describe(HomeComponent.name, () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
@@ -57,6 +58,12 @@ xdescribe(HomeComponent.name, () => {
       ],
       providers: [
         {provide: BookService, useValue: bookServiceMock},
+        {
+          provide: Document ,
+          useExisting: DOCUMENT
+
+          }
+
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -92,5 +99,13 @@ xdescribe(HomeComponent.name, () => {
     // expect(spy1).toHaveBeenCalled();
     expect(component.listBook.length).toBe(3);
   });
+
+  it('test alert',()=>{
+    const documentService = TestBed.inject(DOCUMENT);
+    const windowAgular = documentService.defaultView;
+    spyOn(windowAgular, 'alert').and.callFake(()=> null);
+    component.ngOnInit();
+    expect(windowAgular.alert).toHaveBeenCalledWith('Hello, World!');
+  })
 
 });
