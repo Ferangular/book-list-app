@@ -1,9 +1,12 @@
 import {CartComponent} from './cart.component';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {HttpClientModule} from '@angular/common/http';
-import {CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA} from '@angular/core';
 import {BookService} from '../../services/book.service';
 import {Book} from '../../models/book.model';
+import {By} from '@angular/platform-browser';
+import {of} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
 
 // Declaración de manera global
 const listBook: Book[] = [
@@ -30,8 +33,15 @@ const listBook: Book[] = [
   }
 ];
 
+const MatDialogMock = {
+  open() {
+    return {
+      afterClosed: () => of(true)
+    };
+  }
+};
 
-xdescribe(CartComponent.name, () => {
+describe(CartComponent.name, () => {
 
   let component: CartComponent;
   let fixture: ComponentFixture<CartComponent>;
@@ -47,7 +57,8 @@ xdescribe(CartComponent.name, () => {
         CartComponent
       ],
       providers: [
-        BookService
+        BookService,
+        {provide: MatDialog, useValue: MatDialogMock}
       ],
       schemas: [
         CUSTOM_ELEMENTS_SCHEMA,
@@ -190,5 +201,28 @@ xdescribe(CartComponent.name, () => {
     expect(component.listCartBook.length).toBe(0);
     expect(spy).toHaveBeenCalled();
   });
+
+
+
+  //     Sección integración
+  it('should the title "the cart is empty" is not displayed when there is a list', () => {
+    component.listCartBook = listBook;
+    fixture.detectChanges();
+    const debugElement: DebugElement = fixture.debugElement.query(By.css('#titleCartEmpty'));
+    expect(debugElement).toBeFalsy();
+  });
+
+
+  fit('the title "the cart is empty" is displayed when there is empty', () => {
+    component.listCartBook = [];
+    fixture.detectChanges();
+    const debugElement: DebugElement = fixture.debugElement.query(By.css('#titleCartEmpty'));
+    expect(debugElement).toBeTruthy();
+    if (debugElement) {
+      const element: HTMLElement = debugElement.nativeElement;
+      expect(element.innerHTML).toContain('The cart is empty');
+    }
+  });
+
 
 });
