@@ -1,4 +1,22 @@
-Project for the unit test course
+# Angular: Pruebas unitarias con Jasmine y Karma
+
+
+# Requisitos
+Conocimientos básicos de HTML, CSS y JavaScript
+Tener instalado Node.js y npm
+# Instalación
+- Clona este repositorio.
+- Navega al directorio del proyecto.
+- Ejecuta npm install para instalar las dependencias.
+-  Corre ng serve para iniciar la aplicación en modo desarrollo.
+
+
+# Enlaces
+<div align="center">
+1. <a href="https://www.udemy.com/course/angular-jasmine-karma/learn/lecture/28364388#overview" title="Title">Angular: Pruenas Unitarias con Jasmine y Karma</a> 
+
+</div>
+
 
 # BookListApp
 
