@@ -59,10 +59,10 @@ describe(HomeComponent.name, () => {
       providers: [
         {provide: BookService, useValue: bookServiceMock},
         {
-          provide: Document ,
+          provide: Document,
           useExisting: DOCUMENT
 
-          }
+        }
 
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
@@ -100,12 +100,12 @@ describe(HomeComponent.name, () => {
     expect(component.listBook.length).toBe(3);
   });
 
-  it('test alert',()=>{
+  it('test alert', () => {
     const documentService = TestBed.inject(DOCUMENT);
     const windowAgular = documentService.defaultView;
-    spyOn(windowAgular, 'alert').and.callFake(()=> null);
+    spyOn(windowAgular, 'alert').and.callFake(() => null);
     component.ngOnInit();
     expect(windowAgular.alert).toHaveBeenCalledWith('Hello, World!');
-  })
+  });
 
 });
